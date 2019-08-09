@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        position: fixed;
+        width: 100%;
+      }
+
+      .main-wrapper {
+        width: 100%;
+        display: flex;
+        position: relative;
+        transition: 0.3s all ease;
+        left: 0;
+      }
+
+      .main {
+        width: 100%;
+        overflow: hidden;
+        position: relative;
+      }
+    
+      a {
+        text-transform: uppercase;
+        color: #fff;
+        font-family: Arial, Helvetica, sans-serif;
+        font-weight: bold;
+        font-size: 20px;
+      }
+    
+      ul {
+        list-style: none;
+      }
+    
+      .column {
+        width: 25%;
+        height: 290px;
+        overflow: hidden;
+      }
+
+      .column-first {
+        background: url("https://prostor.mts.com.ua/resources/statics/82415/sport%252B_1.png?a=1516361249998") no-repeat;
+      }
+      .column-second {
+        background: url("https://prostor.mts.com.ua/resources/statics/82415/sport%252B_2%25281%2529.png?a=1516612789848") no-repeat;    
+      }
+    
+      .column-thirth {
+        background: url("https://prostor.mts.com.ua/resources/statics/82415/sport%252B_3%25281%2529.png?a=1516612795664") no-repeat;
+      }
+    
+      .column-fourth {
+        background: url("https://prostor.mts.com.ua/resources/statics/82415/sport%252B_4.png?a=1516361253816") no-repeat;
+      }
+
+      .column-first,
+      .column-second,
+      .column-thirth,
+      .column-fourth {
+        background-size: 100.16% 100%;
+      }
+    
+      .represent-left {
+        height: 290px;
+        background: url("https://prostor.mts.com.ua/resources/statics/82415/Nakladka%2B1t.png?a=1560504769495") no-repeat;
+        transform: translate(-5%);
+        background-size: 100% 100%;
+      }
+    
+      .represent-left,
+      .represent-right,
+      .swipe-left_wrapper,
+      .swipe-right_wrapper {
+        transition: 0.5s all ease;
+      }
+    
+      .represent-left:hover,
+      .represent-right:hover,
+      .column-left:hover .swipe-left_wrapper,
+      .column-right:hover .swipe-right_wrapper {
+        transform: translate(0);
+      }
+    
+      .represent-left_list,
+      .represent-right_list {
+        padding: 35px 30px;
+      }
+    
+      .represent-right {
+        height: 290px;
+        background: url("https://prostor.mts.com.ua/resources/statics/82415/Nakladka%2B2.png?a=1560503641717") no-repeat;
+        transform: translate(5%);
+        background-size: 100% 100%;
+      }
+    
+      .represent-right_list-item {
+        text-align: right;
+      }
+    
+      .swipe-left_wrapper {
+        height: 290px;
+        background: url("https://prostor.mts.com.ua/resources/statics/82415/Nakladka%2B3.png?a=1560503645061") no-repeat;
+        background-size: 100% 100%;
+        display: flex;
+        align-items: flex-end;
+        transform: translate(100%);
+      }
+    
+      .swipe-left_anchor-wrapper,
+      .swipe-right_anchor-wrapper {
+        margin-bottom: 38px;
+        margin-left: 100px;
+      }
+    
+      .swipe-right_wrapper {
+        height: 290px;
+        background: url("https://prostor.mts.com.ua/resources/statics/82415/Nakladka%2B4t.png?a=1560504774637") no-repeat;
+        background-size: 100% 100%;
+        display: flex;
+        align-items: flex-end;
+        transform: translate(-100%);
+      }
+    
+      .swipe-left_anchor,
+      .swipe-right_anchor {
+        text-transform: lowercase;
+      }
+
+      .button-wrapper {
+        position: absolute;
+        display: none;
+        justify-content: center;
+        align-items: center;
+        width: 50px;
+        height: 50px;
+        background: rgb(143, 142, 142, 0.6);
+        top: 50%;
+        transform: translate(0, -50%);
+        z-index: 2;
+      }
+
+      .button-left_wrapper {
+        left: 0;
+        margin-left: 5px;
+      }
+
+      .button-left_wrapper:before {
+        content:"\A";
+        border-style: solid;
+        border-width: 8px 13px 8px 0;
+        border-color: transparent rgb(223, 222, 222, 0.8) transparent transparent;
+        position: absolute;
+        left: 17px;
+      }
+
+      .button-right_wrapper {
+        right: 0;
+        margin-right: 5px;
+      }
+
+      .button-right_wrapper:before {
+        content:"\A";
+        border-style: solid;
+        border-width: 8px 13px 8px 0;
+        border-color: transparent rgb(223, 222, 222, 0.8) transparent transparent;
+        position: absolute;
+        right: 17px;
+        transform: rotate(180deg);
+      }
+
+      .button-wrapper-album {
+        display: flex;
+      }
+
+      .main-album {
+        overflow: hidden;
+      }
+
+      .column-album {
+          min-width: 100%;
+        }
+
+        .represent-left_list-album,
+        .represent-right_list-album {
+          padding: 100px 30px;
+        }
+
+        .represent-left_list-item-album,
+        .represent-right_list-item-album {
+          text-align: center;
+        }
+
+        .represent-left-album,
+        .represent-right-album {
+          transform: translate(0);
+        }
+
+        .swipe-left_wrapper-album,
+        .swipe-right_wrapper-album {
+          background: none;
+          transform: translate(0);
+        }
+
+        .swipe-left_anchor-wrapper-album,
+        .swipe-right_anchor-wrapper-album {
+          margin: 38px auto;
+          height: 40px;
+          width: 150px;
+          background: rgb(34, 34, 34, 0.8);
+          border-radius: 20px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+      @media(max-width: 760px) {
+        .button-wrapper {
+          display: flex;
+        }
+        .main {
+          overflow: hidden;
+        }
+
+        .column {
+          min-width: 100%;
+        }
+
+        .represent-left_list,
+        .represent-right_list {
+          padding: 100px 30px;
+        }
+
+        .represent-left_list-item,
+        .represent-right_list-item {
+          text-align: center;
+        }
+
+        .represent-left,
+        .represent-right {
+          transform: translate(0);
+        }
+
+        .swipe-left_wrapper,
+        .swipe-right_wrapper {
+          background: none;
+          transform: translate(0);
+        }
+
+        .swipe-left_anchor-wrapper,
+        .swipe-right_anchor-wrapper {
+          margin: 38px auto;
+          height: 40px;
+          width: 150px;
+          background: rgb(34, 34, 34, 0.8);
+          border-radius: 20px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+      }
+    </style>
+  </head>
+  
+<body>
+  <div class="main">
+
+      <div class="button-wrapper button-left_wrapper">
+        </div>
+    
+        <div class="button-wrapper button-right_wrapper"> 
+        </div>
+
+    <div class="main-wrapper">
+          <div class="column column-first">
+            <div class="represent-left">
+              <ul class="represent-left_list">
+                <li class="represent-left_list-item">
+                  <a href="https://prostor.mts.com.ua/groups/sport/projects/my-sport/content?filterID=contentstatus%5Bpublished%5D~category%5Brunning%5D"
+                    class="represent-left_list-anchor">running</a>
+                </li>
+                <li class="represent-left_list-item">
+                  <a href="https://prostor.mts.com.ua/groups/sport/projects/my-sport/content?filterID=contentstatus%5Bpublished%5D~category%5Bcycling%5D"
+                    class="represent-left_list-anchor">cycling</a>
+                </li>
+                <li class="represent-left_list-item">
+                  <a href="https://prostor.mts.com.ua/groups/sport/projects/my-sport/content?filterID=contentstatus%5Bpublished%5D~category%5Byoga%5D"
+                    class="represent-left_list-anchor">yoga</a>
+                </li>
+                <li class="represent-left_list-item">
+                  <a href="https://prostor.mts.com.ua/groups/sport/projects/my-sport/content?filterID=contentstatus%5Bpublished%5D~category%5Bcross-fit%5D"
+                    class="represent-left_list-anchor">cross fit</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        
+          <div class="column column-second column-left">
+            <div class="swipe-left_wrapper">
+              <div class="swipe-left_anchor-wrapper">
+                <a href="https://prostor.mts.com.ua/groups/sport/projects/my-sport" class="swipe-left_anchor">group</a>
+              </div>
+            </div>
+          </div>
+        
+          <div class="column column-thirth column-right">
+            <div class="swipe-right_wrapper">
+              <div class="swipe-right_anchor-wrapper">
+                <a href="https://prostor.mts.com.ua/groups/sport/projects/my-sport" class="swipe-right_anchor">group</a>
+              </div>
+            </div>
+          </div>
+        
+          <div class="column column-fourth">
+            <div class="represent-right">
+              <ul class="represent-right_list">
+                <li class="represent-right_list-item">
+                  <a href="https://prostor.mts.com.ua/groups/sport/projects/team-sport/content?filterID=contentstatus%5Bpublished%5D~category%5Bvolleyball%5D"
+                    class="represent-right_list-anchor">volleyball</a>
+                </li>
+                <li class="represent-right_list-item">
+                  <a href="https://prostor.mts.com.ua/groups/sport/projects/team-sport/content?filterID=contentstatus%5Bpublished%5D~category%5Bfootball%5D"
+                    class="represent-right_list-anchor">football</a>
+                </li>
+                <li class="represent-right_list-item">
+                  <a href="https://prostor.mts.com.ua/groups/sport/projects/team-sport/content?filterID=contentstatus%5Bpublished%5D~category%5Bbasketball%5D"
+                    class="represent-right_list-anchor">basketball</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+    </div>
+  </div>
+
+  <script>
+    const wrapper = document.querySelector('.main-wrapper');
+    const columns = document.querySelectorAll('.column');
+    if (window.orientation === 90) {
+      setAlbumClasses(window.orientation);
+    }
+
+    let deviceWidth = document.querySelector('.column').offsetWidth;
+    let maxRange = deviceWidth * columns.length;
+
+    window.addEventListener('resize', function() {
+      deviceWidth = document.querySelector('.column').offsetWidth;
+      maxRange = deviceWidth * columns.length;
+    })
+    
+    const leftButton = document.querySelector('.button-left_wrapper');
+    const rightButton = document.querySelector('.button-right_wrapper');
+    let currentWidth = 0;
+
+    window.addEventListener("orientationchange", function() {
+      setAlbumClasses(window.orientation);
+    }, false);
+
+    rightButton.addEventListener('click', function() {
+      currentWidth += deviceWidth;
+
+      if (currentWidth >= maxRange) {
+        currentWidth = 0;
+      }
+      wrapper.style.left = `-${currentWidth}px`;
+    });
+
+    leftButton.addEventListener('click', function() {
+      currentWidth -= deviceWidth;
+      
+      if (currentWidth < 0) {
+        currentWidth = maxRange - deviceWidth;
+      }
+      wrapper.style.left = `-${currentWidth}px`;
+    })
+
+    function setAlbumClasses(deg) {
+      const buttonWrapper  = document.querySelectorAll('.button-wrapper');
+      const main = document.querySelector('.main');
+      const column = document.querySelectorAll('.column');
+      const representLeftList = document.querySelector('.represent-left_list');
+      const representRightList = document.querySelector('.represent-right_list');
+      const representLeftListItem = document.querySelectorAll('.represent-left_list-item');
+      const representRightListItem = document.querySelectorAll('.represent-right_list-item');
+      const representLeft = document.querySelector('.represent-left');
+      const representRight = document.querySelector('.represent-right');
+      const swipeLeftWrapper = document.querySelector('.swipe-left_wrapper');
+      const swipeRightWrapper = document.querySelector('.swipe-right_wrapper');
+      const swipeLeftAnchorWrapper = document.querySelector('.swipe-left_anchor-wrapper');
+      const swipeRightAnchorWrapper = document.querySelector('.swipe-right_anchor-wrapper');
+
+      if (deg === 90) {
+        buttonWrapper.forEach(item => item.classList.add('button-wrapper-album'));
+        representLeftListItem.forEach(item => item.classList.add('represent-left_list-item-album'));
+        representRightListItem.forEach(item => item.classList.add('represent-right_list-item-album'));
+        column.forEach(item => item.classList.add('column-album'));
+        main.classList.add('main-album');
+        representLeftList.classList.add('represent-left_list-album');
+        representRightList.classList.add('represent-right_list-album');
+        representLeft.classList.add('represent-left-album');
+        representRight.classList.add('represent-right-album');
+        swipeLeftWrapper.classList.add('swipe-left_wrapper-album');
+        swipeRightWrapper.classList.add('swipe-right_wrapper-album');
+        swipeLeftAnchorWrapper.classList.add('swipe-left_anchor-wrapper-album');
+        swipeRightAnchorWrapper.classList.add('swipe-right_anchor-wrapper-album');
+      } else {
+        buttonWrapper.forEach(item => item.classList.remove('button-wrapper-album'));
+        representLeftListItem.forEach(item => item.classList.remove('represent-left_list-item-album'));
+        representRightListItem.forEach(item => item.classList.remove('represent-right_list-item-album'));
+        column.forEach(item => item.classList.remove('column-album'));
+        main.classList.remove('main-album');
+        representLeftList.classList.remove('represent-left_list-album');
+        representRightList.classList.remove('represent-right_list-album');
+        representLeft.classList.remove('represent-left-album');
+        representRight.classList.remove('represent-right-album');
+        swipeLeftWrapper.classList.remove('swipe-left_wrapper-album');
+        swipeRightWrapper.classList.remove('swipe-right_wrapper-album');
+        swipeLeftAnchorWrapper.classList.remove('swipe-left_anchor-wrapper-album');
+        swipeRightAnchorWrapper.classList.remove('swipe-right_anchor-wrapper-album');
+      }
+    }
+  </script>
+
+</body>
